@@ -2,12 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const perguntaSchema = new Schema({
-   authorRole: [{
-    type: String,
-    enum: ['Administrator', 'Explorer']
-  }],
-   question: String,
    
+   question: String,
 
 }, {
    timestamps: true

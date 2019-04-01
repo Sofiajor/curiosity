@@ -7,5 +7,11 @@ router.get('/', (req, res, next) => {
 })
 
 
+//GET INFO FROM DATABASE TO SEARCHBAR
+//router.post('/getInfo', (req,res,next) =>{
+//Scenario.find()
+//.then(data => res.json(data)
+//.catch(err => console.log("An error ocurred: ", err))
+
 
 module.exports = router

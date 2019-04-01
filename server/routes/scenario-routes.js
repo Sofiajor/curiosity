@@ -13,13 +13,19 @@ router.get('/getAllScenarios', (req, res) => {
 
 router.get("/getOneScenario/:id", (req, res) => {
   Scenario.findById(req.params.id)
-    .then(data => {console.log(data)})
+    .populate("questions")
+    .then(data => {
+      console.log(data)
+      res.json(data)
+    })
     .catch(err => console.log(err))
 })
 
 
-router.get("/getQuestions",(req, res) => {
-  Question.find({Scenario: req.params.id})
+router.get("/getQuestions", (req, res) => {
+  Question.find({
+      Scenario: req.params.id
+    })
     .then(data => res.json(data))
     .catch(err => console.log(err))
 })
@@ -30,5 +36,36 @@ router.post("/postScenario", (req, res) => {
     .then(data => res.json(data))
     .catch(err => console.log(err))
 })
+
+
+router.post("/createQuestion", (req, res) => {
+  console.log(req.body)
+  const newQuestion = {
+    question: req.body.question
+  }
+  Question.create(newQuestion)
+    .then(question => {
+      return Scenario.findByIdAndUpdate(req.body.scenarioId, {$push: {questions: question._id}})
+    })
+    .then(scenario => res.json(scenario))
+})
+
+
+router.post('/searchInfo', (req,res) => {
+  const {search} = req.body
+  Scenario.find({$or:[title:{}, description:{}]})
+  .then(info => res.json(info))
+  .catch(err => console.log(err))
+})
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router
