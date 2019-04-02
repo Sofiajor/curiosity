@@ -51,13 +51,6 @@ router.post("/createQuestion", (req, res) => {
 })
 
 
-router.post('/searchInfo', (req,res) => {
-  const {search} = req.body
-  Scenario.find({$or:[title:{}, description:{}]})
-  .then(info => res.json(info))
-  .catch(err => console.log(err))
-})
-
 
 
 
